@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SafeNest | Guntur Verified Rentals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8g4dF5jL3c38zI7s+9M9Q/Qz1eUf/14Fm/716I/" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #67b26f; /* Green */
+      --secondary: #4ca2cd; /* Blue */
+      --accent: #318eae; /* Darker Cyan */
+      --shade: #f8f9fb; /* Light background */
+      --text: #212837; /* Dark text */
+      --card-bg: #fff;
+      --tab-bg: #f4f8fd; /* Light blueish background for tabs */
+    }
+    body {
+      background: var(--shade);
+      font-family: 'Roboto', Arial, sans-serif;
+      margin: 0;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    /* --- Header & Nav --- */
+    header {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 44px 0 24px 0;
+      text-align: center;
+      box-shadow: 0 8px 30px -10px #06747739;
+    }
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2.5rem;
+      margin: 0 0 10px 0;
+      letter-spacing: 1.7px;
+    }
+    header p {
+      font-size: 1.16rem;
+      margin: 0 0 22px 0;
+    }
+    nav {
+      margin-top: 10px;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      padding: 0 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      transition: border 0.2s;
+      padding: 2px 6px;
+    }
+    nav a:hover {
+      border-bottom: 2px solid #fff;
+      text-shadow: 0 1px 12px #1578c75a;
+    }
+    /* --- Promo Banner --- */
+    .promo {
+      background: linear-gradient(90deg, #e3fce2 0%, #e0f5fc 100%);
+      color: #187e37;
+      text-align: center;
+      padding: 14px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 1.13em;
+      letter-spacing: 0.5px;
+      box-shadow: 0 3px 12px #3ad3740c;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      flex-wrap: wrap;
+    }
+    .promo-btn {
+      background: linear-gradient(90deg, #67b26f 0%, #4ca2cd 100%);
+      color: #fff;
+      border: none;
+      padding: 9px 26px;
+      border-radius: 17px;
+      font-size: 1.08em;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 7px;
+      box-shadow: 0 2px 12px #67b26f2a;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .promo-btn:hover {
+      background: linear-gradient(90deg, #4ca2cd 0%, #67b26f 100%);
+      transform: scale(1.05);
+    }
+    /* --- Feature Cards (Now at the bottom) --- */
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 26px;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 48px auto 40px auto;
+      padding: 0 15px;
+    }
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 3px 14px rgba(76, 162, 205, 0.09), 0 1px 1px rgba(22, 33, 61, 0.06);
+      width: 238px;
+      padding: 32px 22px 20px 22px;
+      text-align: center;
+      border: 1.2px solid #e6f1fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: box-shadow 0.3s, border 0.3s, transform 0.3s;
+    }
+    .feature-card:hover {
+      box-shadow: 0 8px 28px 0 rgba(103, 178, 111, 0.22);
+      border: 1.7px solid var(--primary);
+      transform: translateY(-6px);
+    }
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 15px;
+      margin-top: 1px;
+    }
+    .feature-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.09em;
+      margin-bottom: 10px;
+      color: var(--accent);
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    .feature-desc {
+      font-size: 1.01em;
+      color: #3e4d67;
+      margin-bottom: 3px;
+      min-height: 52px;
+      line-height: 1.5;
+    }
+    /* --- Listings Section --- */
+    .section-heading {
+      font-size: 1.29em;
+      color: #256167;
+      margin: 36px auto 20px auto;
+      text-align: center;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      padding: 0 10px;
+    }
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto 58px auto;
+      padding: 0 18px;
+    }
+    .listing-card {
+      background: var(--card-bg);
+      border-radius: 13px;
+      box-shadow: 0 7px 24px rgba(67, 173, 240, 0.13), 0 0.5px 1px rgba(22, 33, 61, 0.09);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1.3px solid #dceff9;
+      overflow: hidden;
+      position: relative;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .listing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 14px 40px rgba(67, 173, 240, 0.17), 0 3px 9px #4ca2cd22;
+      border-color: var(--primary);
+    }
+    .listing-photo {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      background: #f4f6f8;
+      border-top-left-radius: 13px;
+      border-top-right-radius: 13px;
+    }
+    .listing-detail {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex-grow: 1;
+    }
+    .listing-title {
+      font-family: 'Montserrat', sans-serif;
+      color: #217884;
+      font-weight: 600;
+      font-size: 1.22em;
+      margin-bottom: 3px;
+    }
+    .listing-location {
+      color: #4c6073;
+      font-size: 0.98em;
+      margin-bottom: 6px;
+    }
+    .listing-info {
+      font-size: 1.05em;
+      color: #256167;
+      margin-bottom: 8px;
+    }
+    .listing-facilities-group {
+      margin-top: 7px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .listing-facilities-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.05em;
+      color: #187e37;
+      font-weight: 600;
+      margin-bottom: 8px; /* Increased margin for better separation */
+      letter-spacing: 0.4px;
+    }
+    .listing-features-row {
+      display: flex;
+      flex-wrap: wrap; /* **Crucial Change: Enables wrapping instead of scroll** */
+      gap: 8px; /* Reduced gap for tighter fit */
+      justify-content: center; /* Center items for clean wrapping */
+      background: var(--tab-bg);
+      border-radius: 10px;
+      margin: 0 auto;
+      padding: 10px 10px;
+      align-items: center;
+      width: 100%;
+      overflow: hidden; /* **Removed overflow-x: auto;** */
+      margin-top: auto;
+    }
+    .feature-tab {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      font-size: 0.9em; /* Slightly reduced font size for wrapping */
+      font-family: 'Montserrat', sans-serif;
+      border-radius: 8px;
+      padding: 6px 10px; /* Reduced padding */
+      font-weight: 600;
+      color: #222;
+      background: #f2efe7;
+      border: 1px solid #e7e7e2;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 5px #318eae0e;
+      white-space: nowrap;
+      margin: 0;
+      height: 30px; /* Fixed height for row consistency */
+    }
+    .feature-tab i {
+      width: 18px;
+      height: 18px;
+      margin-right: 6px;
+      vertical-align: middle;
+      font-size: 1em;
+      color: inherit;
+    }
+    /* Feature-specific colors */
+    .feature-secured { background: #e7f9ee; color: #29b875; border: 1px solid #d1f0da;}
+    .feature-cctv { background: #f0f6fa; color: #277bad; border: 1px solid #cee5fb;}
+    .feature-backup { background: #fff5c7; color: #7b751a; border: 1px solid #e3d685;}
+    .feature-ac { background: #e8edfa; color: #395bea; border: 1px solid #c4d1f6;}
+    .feature-wifi { background: #e2f8fd; color: #2196f3; border: 1px solid #c6e4f4;}
+    .feature-laundry { background: #fde8e8; color: #f55757; border: 1px solid #faccc7;}
+    .feature-parking { background: #f1fae7; color: #98c93b; border: 1px solid #e4ecd7;}
+    .feature-furnished { background: #efebfa; color: #7041be; border: 1px solid #ded1ea;}
+    .feature-balcony { background: #fff4e7; color: #df8428; border: 1px solid #f5e2c5;}
+    
+    .listing-price {
+      font-size: 1.15em;
+      font-weight: bold;
+      color: var(--secondary);
+      margin-bottom: 8px;
+      margin-top: 15px;
+    }
+    .listing-reviews {
+      font-size: 1em;
+      color: #798c9e;
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+    .listing-safety {
+      position: absolute;
+      top: 13px;
+      right: 13px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      font-size: 1em;
+      border-radius: 13px 0 13px 13px;
+      padding: 6px 13px 5px 13px;
+      box-shadow: 0 1px 8px #67b26f29;
+      letter-spacing: 0.3px;
+      z-index: 1;
+    }
+    /* CTA Button for Listings */
+    .listing-cta-btn {
+      background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 1em;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .listing-cta-btn:hover {
+      background: linear-gradient(90deg, var(--accent) 0%, var(--secondary) 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(76, 162, 205, 0.4);
+    }
+
+    /* --- Footer --- */
+    footer {
+      background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      text-align: center;
+      padding: 25px 0 18px 0;
+      font-size: 1.05em;
+      margin-top: 34px;
+      letter-spacing: 0.1px;
+    }
+    .footer-contact {
+      margin: 15px 0;
+      font-size: 0.95em;
+      line-height: 1.6;
+    }
+    .footer-contact a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* --- Media Queries --- */
+    @media (max-width: 980px) {
+      .features { gap: 20px; }
+      .feature-card { width: 45%; min-width: 250px; }
+      .listings { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8em; }
+      header p { font-size: 1.05rem; }
+      .listing-photo { height: 160px; }
+      .feature-card { width: 90%; min-width: 190px; }
+      .section-heading { font-size: 1.1em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SafeNest Guntur</h1>
+    <p>Verified rental rooms & houses for students and professionals<br />around Guntur & suburbs | **Trusted, safe, transparent, affordable.**</p>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Verified Listings</a>
+      <a href="#">Safety Index</a>
+      <a href="#">Reviews</a>
+      <a href="#">Contact Us</a>
+    </nav>
+  </header>
+
+  <div class="promo">
+    <span>✨ Rent Verified Now — Secure, Affordable, Friendly!</span>
+    <button class="promo-btn">List Your Property Today</button>
+  </div>
+
+  <div class="section-heading">🏡 Latest Verified Rooms & Houses in Guntur</div>
+  <div class="listings">
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.4/10</span>
+      <img src="https://images.unsplash.com/photo-1501183638714-0f1a9c090b80?auto=format&fit=crop&w=600&q=80" alt="PG Room near College" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">PG Room near College</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Eluru Road, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-kitchen-set"></i> Shared Kitchen</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-house-lock"></i>Gated Community</span>
+            <span class="feature-tab feature-cctv"><i class="fa-solid fa-video"></i>CCTV</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-laundry"><i class="fa-solid fa-soap"></i>Laundry</span>
+            <span class="feature-tab feature-backup"><i class="fa-solid fa-bolt-lightning"></i>Power Backup</span>
+          </div>
+        </div>
+        <div class="listing-price">₹5,800/mo</div>
+        <div class="listing-reviews">“Clean, well-maintained, secure premises.”</div>
+        <a href="#" class="listing-cta-btn">Book Viewing</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.2/10</span>
+      <img src="https://images.unsplash.com/photo-1556910103-1f59a4b7a7d0?auto=format&fit=crop&w=600&q=80" alt="Single Room with Balcony" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Single Room with Balcony</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Brodipet, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-bath"></i> Private Bathroom</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Security</span>
+            <span class="feature-tab feature-balcony"><i class="fa-solid fa-mitten"></i>Balcony</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-backup"><i class="fa-solid fa-bolt-lightning"></i>Power Backup</span>
+            <span class="feature-tab feature-parking"><i class="fa-solid fa-square-parking"></i>Parking</span>
+          </div>
+        </div>
+        <div class="listing-price">₹6,500/mo</div>
+        <div class="listing-reviews">“Quiet neighborhood, fast WiFi.”</div>
+        <a href="#" class="listing-cta-btn">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.0/10</span>
+      <img src="https://images.unsplash.com/photo-1560448071-8e3fae551a00?auto=format&fit=crop&w=600&q=80" alt="Cozy Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Cozy Single Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Nallapadu, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-bath"></i> Shared Bathroom</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-house-lock"></i>Gated</span>
+            <span class="feature-tab feature-cctv"><i class="fa-solid fa-video"></i>CCTV</span>
+            <span class="feature-tab feature-laundry"><i class="fa-solid fa-soap"></i>Laundry</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+          </div>
+        </div>
+        <div class="listing-price">₹4,900/mo</div>
+        <div class="listing-reviews">“Affordable and cozy with great amenities.”</div>
+        <a href="#" class="listing-cta-btn">View Details</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 8.9/10</span>
+      <img src="https://images.unsplash.com/photo-1598300053505-07310c6a4696?auto=format&fit=crop&w=600&q=80" alt="Furnished Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Furnished A/C Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Baba Nagar, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-wind"></i> A/C • <i class="fa-solid fa-bath"></i> Private Bath</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-furnished"><i class="fa-solid fa-chair"></i>Furnished</span>
+            <span class="feature-tab feature-ac"><i class="fa-solid fa-wind"></i>A/C</span>
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Secure</span>
+            <span class="feature-tab feature-parking"><i class="fa-solid fa-square-parking"></i>Parking</span>
+          </div>
+        </div>
+        <div class="listing-price">₹7,200/mo</div>
+        <div class="listing-reviews">“Comfortable and secure with all modern amenities.”</div>
+        <a href="#" class="listing-cta-btn">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.2/10</span>
+      <img src="https://images.unsplash.com/photo-1560449756-5d370a78d23f?auto=format&fit=crop&w=600&q=80" alt="Studio Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Modern Studio Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Pattabhipuram, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-door-open"></i> Studio • <i class="fa-solid fa-utensils"></i> Kitchenette • <i class="fa-solid fa-bath"></i> Private Bath</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-house-lock"></i>Gated</span>
+            <span class="feature-tab feature-cctv"><i class="fa-solid fa-video"></i>CCTV</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-backup"><i class="fa-solid fa-bolt-lightning"></i>Power Backup</span>
+          </div>
+        </div>
+        <div class="listing-price">₹8,000/mo</div>
+        <div class="listing-reviews">“Modern studio ideal for working professionals.”</div>
+        <a href="#" class="listing-cta-btn">Book Viewing</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.3/10</span>
+      <img src="https://images.unsplash.com/photo-1606942387806-6022ccfdda50?auto=format&fit=crop&w=600&q=80" alt="Shared Flat Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Shared Flat Room (PG)</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Syamala Nagar, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-user-group"></i> Shared Amenities</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-cctv"><i class="fa-solid fa-video"></i>CCTV</span>
+            <span class="feature-tab feature-laundry"><i class="fa-solid fa-soap"></i>Laundry</span>
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Secure</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+          </div>
+        </div>
+        <div class="listing-price">₹4,700/mo</div>
+        <div class="listing-reviews">“Affordable and safe with good amenities.”</div>
+        <a href="#" class="listing-cta-btn">View Details</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.1/10</span>
+      <img src="https://images.unsplash.com/photo-1560449632-1ddbc27a4660?auto=format&fit=crop&w=600&q=80" alt="Modern Flat Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Modern Flat Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Gorantla, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-bath"></i> Private Bath</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-ac"><i class="fa-solid fa-wind"></i>A/C</span>
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Secure</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-backup"><i class="fa-solid fa-bolt-lightning"></i>Power Backup</span>
+          </div>
+        </div>
+        <div class="listing-price">₹6,800/mo</div>
+        <div class="listing-reviews">“Bright, modern room with great facilities.”</div>
+        <a href="#" class="listing-cta-btn">Book Viewing</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 8.8/10</span>
+      <img src="https://images.unsplash.com/photo-1572307481848-5a3f7f75e6e2?auto=format&fit=crop&w=600&q=80" alt="Shared PG Flat Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Shared PG Flat Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Autonagar, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-couch"></i> Shared Lounge</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Security</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-parking"><i class="fa-solid fa-square-parking"></i>Parking</span>
+          </div>
+        </div>
+        <div class="listing-price">₹4,500/mo</div>
+        <div class="listing-reviews">“Affordable option with good connectivity.”</div>
+        <a href="#" class="listing-cta-btn">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.3/10</span>
+      <img src="https://images.unsplash.com/photo-1600566753012-c44a2f89b93d?auto=format&fit=crop&w=600&q=80" alt="Deluxe Room" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Deluxe A/C Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Mangalagiri, Near Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-wind"></i> A/C • <i class="fa-solid fa-bath"></i> Private Bath</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-ac"><i class="fa-solid fa-wind"></i>A/C</span>
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-lock"></i>Secure</span>
+            <span class="feature-tab feature-backup"><i class="fa-solid fa-bolt-lightning"></i>Power Backup</span>
+            <span class="feature-tab feature-parking"><i class="fa-solid fa-square-parking"></i>Parking</span>
+            <span class="feature-tab feature-furnished"><i class="fa-solid fa-chair"></i>Furnished</span>
+          </div>
+        </div>
+        <div class="listing-price">₹7,900/mo</div>
+        <div class="listing-reviews">“Spacious, fully furnished, secure with power backup.”</div>
+        <a href="#" class="listing-cta-btn">View Details</a>
+      </div>
+    </div>
+
+    <div class="listing-card">
+      <span class="listing-safety">Safety: 9.1/10</span>
+      <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80" alt="Single Room with Modern Furniture" class="listing-photo" />
+      <div class="listing-detail">
+        <div class="listing-title">Modern Furnished Room</div>
+        <div class="listing-location"><i class="fa-solid fa-location-dot"></i> Syamala Nagar, Guntur</div>
+        <div class="listing-info"><i class="fa-solid fa-bed"></i> Single Bed • <i class="fa-solid fa-bath"></i> Private Bath • <i class="fa-solid fa-wifi"></i> WiFi</div>
+        <div class="listing-facilities-group">
+          <div class="listing-facilities-title">Security & Facilities:</div>
+          <div class="listing-features-row">
+            <span class="feature-tab feature-secured"><i class="fa-solid fa-door-closed"></i>Secure Entry</span>
+            <span class="feature-tab feature-wifi"><i class="fa-solid fa-wifi"></i>WiFi</span>
+            <span class="feature-tab feature-furnished"><i class="fa-solid fa-chair"></i>Furnished</span>
+            <span class="feature-tab feature-cctv"><i class="fa-solid fa-video"></i>CCTV</span>
+          </div>
+        </div>
+        <div class="listing-price">₹6,300/mo</div>
+        <div class="listing-reviews">“Bright, modern room in a safe building.”</div>
+        <a href="#" class="listing-cta-btn">Enquire Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  ---
+
+  <div class="section-heading">Why Choose SafeNest? Key Features</div>
+  <div class="features">
+    <div class="feature-card">
+      <i class="fa-solid fa-house-circle-check feature-icon"></i>
+      <div class="feature-title">Verified Homes</div>
+      <div class="feature-desc">Only verified houses and PGs make it—no fake ads, no brokers.</div>
+    </div>
+    <div class="feature-card">
+      <i class="fa-solid fa-shield-halved feature-icon"></i>
+      <div class="feature-title">Safety First</div>
+      <div class="feature-desc">Every property is rated for safety based on area, reviews, and facilities.</div>
+    </div>
+    <div class="feature-card">
+      <i class="fa-solid fa-indian-rupee-sign feature-icon"></i>
+      <div class="feature-title">Budget Friendly</div>
+      <div class="feature-desc">Find homes matching your budget—no surprises, transparent prices always.</div>
+    </div>
+    <div class="feature-card">
+      <i class="fa-solid fa-file-invoice feature-icon"></i>
+      <div class="feature-title">Complete Details</div>
+      <div class="feature-desc">Get photos, amenities, reviews & all info before calling or booking.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-contact">
+      <p>Contact Us: <a href="tel:+919876543210"><i class="fa-solid fa-phone"></i> +91 98765 43210</a> | <a href="mailto:info@safenestguntur.com"><i class="fa-solid fa-envelope"></i> info@safenestguntur.com</a></p>
+    </div>
+    &copy; 2025 SafeNest | Empowering students & professionals in Guntur to rent safely.
+  </footer>
+</body>
+</html>
